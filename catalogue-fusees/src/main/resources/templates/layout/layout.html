@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="${titre + ' · Catalogue fusées'}">Catalogue fusées</title>
+    <title th:text="${titre + ' · MoonName'}">MoonName</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <script th:src="@{/js/main.js}" defer></script>
 </head>
 <body>
 <header>
-    <a class="brand" th:href="@{/}">CATALOGUE FUSÉES</a>
+    <a class="brand" th:href="@{/}">MoonName</a>
     <nav aria-label="Navigation">
         <a th:href="@{/fusees}">Fusées</a>
         <a th:href="@{/missions}">Missions</a>
@@ -24,8 +24,8 @@
 </header>
 <main th:replace="${contenu}"></main>
 <footer>
-    <a href="https://www.space.com/30568-moonshots-and-snapshots-of-project-apollo.html" target="_blank" rel="noopener">Photo : NASA · Apollo 7</a>
-    <span>Projet fictif</span>
+    <a href="https://www.space.com/30568-moonshots-and-snapshots-of-project-apollo.html" target="_blank" rel="noopener">Photo trouvé sur internet (Apollo7)</a>
+    <span>(projet fictif)</span>
 </footer>
 </body>
 </html>

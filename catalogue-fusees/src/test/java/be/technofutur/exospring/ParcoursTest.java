@@ -105,7 +105,7 @@ class ParcoursTest {
     void refuseUnPanierQuiDepasseLesPlaces() {
         mission.setPlacesDisponibles(1);
         ajouter("Younes");
-        ajouter("Camille");
+        ajouter("MichaelJackson");
         assertThatThrownBy(() -> commandeService.confirmer(client.getId())).isInstanceOf(IllegalArgumentException.class);
         assertThat(commandes.count()).isZero();
         assertThat(panier.detail(client.getId()).lignes()).hasSize(2);
@@ -171,7 +171,7 @@ class ParcoursTest {
     @Test
     void adminPeutCreerModifierEtSupprimerUneFusee() throws Exception {
         mvc.perform(post("/admin/fusees/ajouter").with(user(admin)).with(csrf())
-                .param("nom", "Aster").param("description", "Lanceur fictif").param("imageUrl", ""))
+                .param("nom", "Aster").param("description", "Lanceur fctif").param("imageUrl", ""))
                 .andExpect(redirectedUrl("/fusees"));
         Fusee f = fusees.findAll().stream().filter(x -> x.getNom().equals("Aster")).findFirst().orElseThrow();
         mvc.perform(post("/admin/fusees/" + f.getId() + "/modifier").with(user(admin)).with(csrf())
@@ -192,7 +192,7 @@ class ParcoursTest {
     private Utilisateur compte(String nom, Role role) {
         Utilisateur u = new Utilisateur();
         u.setUsername(nom);
-        u.setEmail(nom + "@example.com");
+        u.setEmail(nom + "@michaelJackson.com");
         u.setPassword("test");
         u.setRole(role);
         return utilisateurs.save(u);

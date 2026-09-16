@@ -21,7 +21,7 @@ public class AuthService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         return utilisateurs.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Compte introuvable"));
+                .orElseThrow(() -> new UsernameNotFoundException("Compte intruvable"));
     }
 
     @Transactional
