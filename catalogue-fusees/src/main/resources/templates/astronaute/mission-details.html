@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Suivi de mission', ~{::main})}">
+<body>
+<main>
+<a th:href="@{/astronaute}">Retour</a>
+<h1 th:text="${mission.nom}"></h1>
+<p th:text="${mission.statut.libelle}"></p>
+<p class="erreur" role="alert" th:if="${erreur}" th:text="${erreur}"></p>
+<div class="rows">
+    <p th:if="${#lists.isEmpty(billets)}">Aucun nom à déposer.</p>
+    <div class="row" th:each="billet : ${billets}">
+        <div><strong th:text="${billet.nomInscrit}"></strong><small th:text="${'Billet n° ' + billet.id}"></small></div>
+        <form th:if="${mission.statut.name() == 'EN_VOL' and billet.statut.name() == 'EN_ATTENTE'}" th:action="@{/astronaute/missions/{id}/billets/{billetId}/deposer(id=${mission.id},billetId=${billet.id})}" method="post"><button>Confirmer le dépôt</button></form>
+        <span th:unless="${mission.statut.name() == 'EN_VOL' and billet.statut.name() == 'EN_ATTENTE'}" th:text="${billet.statut.libelle}"></span>
+    </div>
+</div>
+<form class="actions" th:if="${mission.statut.name() == 'PLANIFIEE' or mission.statut.name() == 'EN_VOL'}" th:action="@{/astronaute/missions/{id}/avancer(id=${mission.id})}" method="post">
+    <button th:text="${mission.statut.name() == 'PLANIFIEE' ? 'Lancer la mission' : 'Terminer la mission'}"></button>
+</form>
+</main>
+</body>
+</html>

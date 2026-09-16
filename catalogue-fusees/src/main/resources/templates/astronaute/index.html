@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Mes missions', ~{::main})}">
+<body>
+<main>
+<h1>Mes missions</h1>
+<div class="rows">
+    <p th:if="${#lists.isEmpty(missions)}">Aucune mission.</p>
+    <div class="row" th:each="mission : ${missions}">
+        <div><a th:href="@{/astronaute/missions/{id}(id=${mission.id})}" th:text="${mission.nom}"></a><small th:text="${mission.statut.libelle}"></small></div>
+        <a th:href="@{/astronaute/missions/{id}(id=${mission.id})}">Voir les noms</a>
+    </div>
+</div>
+</main>
+</body>
+</html>

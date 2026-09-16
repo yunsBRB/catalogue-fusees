@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Fusée', ~{::main})}">
+<body>
+<main>
+<h1 th:text="${id == null ? 'Ajouter une fusée' : 'Modifier la fusée'}"></h1>
+<form class="fields" th:object="${form}" th:action="${id == null} ? @{/admin/fusees/ajouter} : @{/admin/fusees/{id}/modifier(id=${id})}" method="post">
+    <div th:replace="~{layout/fragments :: erreurs}"></div>
+    <label>Nom<input th:field="*{nom}" required maxlength="60"></label>
+    <label>Description<textarea th:field="*{description}" required maxlength="500"></textarea></label>
+    <label>Image (facultatif)<input th:field="*{imageUrl}" maxlength="500" placeholder="https://… ou /images/…"></label>
+    <div class="actions"><button>Enregistrer</button><a th:href="@{/fusees}">Annuler</a></div>
+</form>
+</main>
+</body>
+</html>

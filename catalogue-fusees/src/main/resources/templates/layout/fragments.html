@@ -1,0 +1,15 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <div th:fragment="erreurs" class="erreur" role="alert" th:if="${#fields.hasAnyErrors()}">
+        <p th:each="e : ${#fields.allErrors()}" th:text="${e}"></p>
+    </div>
+    <div th:fragment="missions" class="rows">
+        <p th:if="${#lists.isEmpty(missions)}">Aucune mission.</p>
+        <div class="row" th:each="mission : ${missions}">
+            <div>
+                <a th:href="@{/missions/{id}(id=${mission.id})}" th:text="${mission.nom}"></a>
+                <small><span th:text="${#temporals.format(mission.dateDepart, 'dd/MM/yyyy')}"></span> · <span th:text="${mission.statut.libelle}"></span> · <span th:text="${mission.placesDisponibles}"></span> places</small>
+            </div>
+            <a th:href="@{/missions/{id}(id=${mission.id})}" th:text="${#numbers.formatDecimal(mission.prix, 1, 2) + ' €'}"></a>
+        </div>
+    </div>
+</div>

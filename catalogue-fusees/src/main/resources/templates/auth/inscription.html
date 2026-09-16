@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Inscription', ~{::main})}">
+<body>
+<main>
+<h1>Créer un compte</h1>
+<form class="fields" th:action="@{/inscription}" th:object="${form}" method="post">
+    <div th:replace="~{layout/fragments :: erreurs}"></div>
+    <label>Pseudo<input th:field="*{username}" required pattern="[a-zA-Z0-9._-]{3,30}" minlength="3" maxlength="30" autocomplete="username"></label>
+    <label>Email<input type="email" th:field="*{email}" required maxlength="150" autocomplete="email"></label>
+    <label>Mot de passe<input type="password" name="password" required minlength="8" maxlength="64" autocomplete="new-password"></label>
+    <small>8 caractères minimum</small>
+    <div class="actions"><button>Créer mon compte</button><a th:href="@{/login}">Connexion</a></div>
+</form>
+</main>
+</body>
+</html>

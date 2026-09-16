@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Mission', ~{::main})}">
+<body>
+<main>
+<h1 th:text="${id == null ? 'Ajouter une mission' : 'Modifier la mission'}"></h1>
+<form class="fields" th:object="${form}" th:action="${id == null} ? @{/admin/missions/ajouter} : @{/admin/missions/{id}/modifier(id=${id})}" method="post">
+    <div th:replace="~{layout/fragments :: erreurs}"></div>
+    <label>Nom<input th:field="*{nom}" required maxlength="60"></label>
+    <label>Fusée<select th:field="*{fuseeId}" required><option value="">Choisir</option><option th:each="f : ${fusees}" th:value="${f.id}" th:text="${f.nom}"></option></select></label>
+    <label>Astronaute<select th:field="*{astronauteId}" required><option value="">Choisir</option><option th:each="a : ${astronautes}" th:value="${a.id}" th:text="${a.username}"></option></select></label>
+    <label>Départ<input type="date" th:field="*{dateDepart}" required></label>
+    <div class="two">
+        <label>Prix (€)<input type="number" th:field="*{prix}" min="0.01" max="99999999.99" step="0.01" required></label>
+        <label>Places disponibles<input type="number" th:field="*{placesDisponibles}" min="0" max="10000" required></label>
+    </div>
+    <label>Statut<select th:field="*{statut}"><option th:each="s : ${statuts}" th:value="${s}" th:text="${s.libelle}"></option></select></label>
+    <div class="actions"><button>Enregistrer</button><a th:href="@{/missions}">Annuler</a></div>
+</form>
+</main>
+</body>
+</html>

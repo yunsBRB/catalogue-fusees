@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Action impossible', ~{::main})}">
+<body>
+<main>
+<small>400</small><h1>Action impossible</h1><p class="erreur" th:text="${erreur}"></p><a class="button" th:href="@{/}">Accueil</a>
+</main>
+</body>
+</html>

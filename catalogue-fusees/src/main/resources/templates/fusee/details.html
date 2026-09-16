@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Fusée', ~{::main})}">
+<body>
+<main>
+<a th:href="@{/fusees}">Retour</a>
+<h1 th:text="${fusee.nom}"></h1>
+<div class="split">
+    <section>
+        <p th:text="${fusee.description}"></p>
+        <h2>Missions</h2>
+        <div th:replace="~{layout/fragments :: missions}"></div>
+        <div sec:authorize="hasAuthority('ADMIN')" class="actions">
+            <a class="button" th:href="@{/admin/fusees/{id}/modifier(id=${fusee.id})}">Modifier</a>
+            <form th:action="@{/admin/fusees/{id}/supprimer(id=${fusee.id})}" method="post" data-confirm="Supprimer cette fusée ?">
+                <button class="secondary">Supprimer</button>
+            </form>
+        </div>
+    </section>
+    <img class="photo" th:if="${fusee.imageUrl != null and !#strings.isEmpty(fusee.imageUrl)}" th:src="${fusee.imageUrl}" th:alt="${fusee.nom}">
+</div>
+</main>
+</body>
+</html>

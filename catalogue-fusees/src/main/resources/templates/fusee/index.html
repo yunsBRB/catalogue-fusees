@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Fusées', ~{::main})}">
+<body>
+<main>
+<div class="heading">
+    <h1>Fusées</h1>
+    <a sec:authorize="hasAuthority('ADMIN')" class="button" th:href="@{/admin/fusees/ajouter}">Ajouter</a>
+</div>
+<div class="rows">
+    <p th:if="${#lists.isEmpty(fusees)}">Aucune fusée.</p>
+    <div class="row" th:each="fusee : ${fusees}">
+        <a th:href="@{/fusees/{id}(id=${fusee.id})}" th:text="${fusee.nom}"></a>
+        <a th:href="@{/fusees/{id}(id=${fusee.id})}">Détails</a>
+    </div>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Mes commandes', ~{::main})}">
+<body>
+<main>
+<h1>Mes commandes</h1>
+<div class="rows">
+    <p th:if="${#lists.isEmpty(commandes)}">Aucune commande.</p>
+    <div class="row" th:each="commande : ${commandes}">
+        <div>
+            <a th:href="@{/commandes/{id}(id=${commande.id})}" th:text="${'Commande n° ' + commande.id}"></a>
+            <small><span th:text="${#temporals.format(commande.date, 'dd/MM/yyyy')}"></span> · <span th:text="${commande.statut.libelle}"></span></small>
+        </div>
+        <span th:text="${#numbers.formatDecimal(commande.total(), 1, 2) + ' €'}"></span>
+    </div>
+</div>
+</main>
+</body>
+</html>

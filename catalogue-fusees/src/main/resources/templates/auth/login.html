@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Connexion', ~{::main})}">
+<body>
+<main>
+<h1>Connexion</h1>
+<form class="fields" th:action="@{/login}" method="post">
+    <p class="erreur" role="alert" th:if="${param.error}">Identifiants incorrects.</p>
+    <p role="status" th:if="${param.inscrit}">Compte créé.</p>
+    <label>Pseudo<input name="username" required autocomplete="username"></label>
+    <label>Mot de passe<input type="password" name="password" required autocomplete="current-password"></label>
+    <div class="actions"><button>Se connecter</button><a th:href="@{/inscription}">Créer un compte</a></div>
+</form>
+</main>
+</body>
+</html>

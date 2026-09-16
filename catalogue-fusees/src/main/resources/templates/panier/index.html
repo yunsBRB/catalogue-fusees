@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Panier', ~{::main})}">
+<body>
+<main>
+<h1>Panier</h1>
+<p class="erreur" role="alert" th:if="${erreur}" th:text="${erreur}"></p>
+<p th:if="${#lists.isEmpty(panier.lignes)}">Panier vide.</p>
+<div th:unless="${#lists.isEmpty(panier.lignes)}">
+    <div class="rows">
+        <div class="row" th:each="ligne : ${panier.lignes}">
+            <div><strong th:text="${ligne.nomInscrit}"></strong><small th:text="${ligne.missionNom}"></small></div>
+            <div class="actions">
+                <span th:text="${#numbers.formatDecimal(ligne.prix, 1, 2) + ' €'}"></span>
+                <form th:action="@{/panier/retirer/{id}(id=${ligne.id})}" method="post"><button class="link">Retirer</button></form>
+            </div>
+        </div>
+    </div>
+    <div class="row"><strong>Total</strong><strong th:text="${#numbers.formatDecimal(panier.total(), 1, 2) + ' €'}"></strong></div>
+    <form class="actions" th:action="@{/commandes}" method="post"><button>Confirmer l’achat fictif</button></form>
+</div>
+<a class="back" th:href="@{/missions}">Ajouter un nom</a>
+</main>
+</body>
+</html>

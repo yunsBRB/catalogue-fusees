@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Missions', ~{::main})}">
+<body>
+<main>
+<div class="heading">
+    <h1>Missions</h1>
+    <a sec:authorize="hasAuthority('ADMIN')" class="button" th:href="@{/admin/missions/ajouter}">Ajouter</a>
+</div>
+<form class="filters" th:action="@{/missions}" th:object="${filtre}" method="get">
+    <input th:field="*{nom}" placeholder="Rechercher" aria-label="Nom de la mission">
+    <select th:field="*{statut}" aria-label="Statut">
+        <option value="">Tous les statuts</option>
+        <option th:each="s : ${statuts}" th:value="${s}" th:text="${s.libelle}"></option>
+    </select>
+    <button>Filtrer</button>
+    <a th:href="@{/missions}">Effacer</a>
+</form>
+<div th:replace="~{layout/fragments :: missions}"></div>
+</main>
+</body>
+</html>

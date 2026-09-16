@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Mission', ~{::main})}">
+<body>
+<main>
+<a th:href="@{/missions}">Retour</a>
+<h1 th:text="${mission.nom}"></h1>
+<div class="split">
+    <section>
+        <dl class="spec">
+            <div><dt>Départ</dt><dd th:text="${#temporals.format(mission.dateDepart, 'dd/MM/yyyy')}"></dd></div>
+            <div><dt>Fusée</dt><dd><a th:href="@{/fusees/{id}(id=${mission.fuseeId})}" th:text="${mission.fuseeNom}"></a></dd></div>
+            <div><dt>Astronaute</dt><dd th:text="${mission.astronauteNom}"></dd></div>
+            <div><dt>Places</dt><dd th:text="${mission.placesDisponibles}"></dd></div>
+            <div><dt>Prix par nom</dt><dd th:text="${#numbers.formatDecimal(mission.prix, 1, 2) + ' €'}"></dd></div>
+            <div><dt>Statut</dt><dd th:text="${mission.statut.libelle}"></dd></div>
+        </dl>
+        <div sec:authorize="hasAuthority('ADMIN')" class="actions">
+            <a class="button" th:href="@{/admin/missions/{id}/modifier(id=${mission.id})}">Modifier</a>
+            <form th:action="@{/admin/missions/{id}/supprimer(id=${mission.id})}" method="post" data-confirm="Supprimer cette mission ?"><button class="secondary">Supprimer</button></form>
+        </div>
+    </section>
+    <section th:if="${mission.reservable()}">
+        <form sec:authorize="hasAuthority('CLIENT')" class="ticket fields" th:object="${form}" th:action="@{/panier/ajouter/{id}(id=${mission.id})}" method="post">
+            <h2>Votre inscription</h2>
+            <div th:replace="~{layout/fragments :: erreurs}"></div>
+            <label>Nom à graver<input th:field="*{nomInscrit}" required maxlength="40"></label>
+            <small>40 caractères maximum</small>
+            <button>Ajouter au panier</button>
+        </form>
+        <a sec:authorize="isAnonymous()" class="button" th:href="@{/login}">Se connecter pour réserver</a>
+    </section>
+    <p th:unless="${mission.reservable()}">Réservations closes.</p>
+</div>
+</main>
+</body>
+</html>

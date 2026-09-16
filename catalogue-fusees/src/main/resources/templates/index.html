@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Accueil', ~{::main})}">
+<body>
+<main>
+<section class="hero">
+    <h1>Votre nom<br>sur la Lune.</h1>
+    <p>Un nom gravé sur une pierre lunaire.</p>
+    <a class="button" th:href="@{/missions}">Voir les missions</a>
+</section>
+</main>
+</body>
+</html>

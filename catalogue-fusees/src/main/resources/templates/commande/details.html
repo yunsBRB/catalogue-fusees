@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout/layout :: page('Billets', ~{::main})}">
+<body>
+<main>
+<a th:href="@{/commandes}">Retour</a>
+<h1 th:text="${'Commande n° ' + commande.id}"></h1>
+<div class="tickets">
+    <article class="ticket" th:each="ligne : ${commande.lignes}">
+        <small th:text="${'Billet n° ' + ligne.id}"></small>
+        <h2 class="nom" th:text="${ligne.nomInscrit}"></h2>
+        <p th:text="${ligne.missionNom}"></p>
+        <div class="spec">
+            <div><small>Départ</small><span th:text="${#temporals.format(ligne.dateDepart, 'dd/MM/yyyy')}"></span></div>
+            <div><small>Mission</small><span th:text="${ligne.statutMission.libelle}"></span></div>
+        </div>
+        <p th:text="${ligne.statut.libelle}"></p>
+        <div class="tear"><span>Terre → Lune</span><span th:text="${#numbers.formatDecimal(ligne.prix, 1, 2) + ' €'}"></span></div>
+    </article>
+</div>
+<p class="back" th:text="${'Total : ' + #numbers.formatDecimal(commande.total(), 1, 2) + ' €'}"></p>
+</main>
+</body>
+</html>
